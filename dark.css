@@ -1,0 +1,49 @@
+/* More Settings for Google Docs - dark mode and clean-up.
+   How the dark mode stays fast: one colour filter on <html>, drawn by the GPU, instead of rewriting every element's
+   colours with JS (which is what makes most dark-mode add-ons lag). The filter turns white into dark grey and keeps
+   colours' hue (blue stays blue). Pictures get the exact opposite filter, so they come out in their real colours.
+
+   Maths: invert(a) maps a colour c to a + c(1 - 2a). Undoing it is invert(1) then contrast(1 / (1 - 2a)),
+   so each level below has a matching --k. hue-rotate(180deg) twice is a full turn, so it undoes itself.
+   content.js only sets attributes on <html>; it never touches anything else. */
+
+@media screen {
+  :root { --msgd-a: 0.88; --msgd-k: 1.3158; }              /* grey: white -> #1f1f1f, black text -> #e0e0e0 */
+  :root[data-msgd-level="soft"] { --msgd-a: 0.82; --msgd-k: 1.5625; }   /* #2e2e2e */
+  :root[data-msgd-level="black"] { --msgd-a: 1; --msgd-k: 1; }          /* #000 */
+
+  /* ---------- Dark mode (on unless content.js sets data-msgd-off, so no white flash on load) ---------- */
+  :root:not([data-msgd-off]):not([data-msgd-fs]) {
+    filter: invert(var(--msgd-a)) hue-rotate(180deg) !important;
+    background-color: #fff !important;   /* becomes the dark background */
+    min-height: 100%;
+    color-scheme: light !important;      /* the filter does the darkening; native dark widgets would be double-flipped */
+  }
+
+  /* Real colours for pictures, avatars, thumbnails and video. */
+  :root[data-msgd-img]:not([data-msgd-off]):not([data-msgd-fs]) :is(img, video, picture, image) {
+    filter: hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+  }
+
+  /* Docs: the page you type on. "dim" = light page but not glaring, "white" = normal white page. */
+  :root[data-msgd-page="dim"]:not([data-msgd-off]):not([data-msgd-fs]) :is(.kix-page-paginated, .kix-page-compact) {
+    filter: brightness(0.82) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+  }
+  :root[data-msgd-page="white"]:not([data-msgd-off]):not([data-msgd-fs]) :is(.kix-page-paginated, .kix-page-compact) {
+    filter: hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+  }
+  /* Pictures on a light page are already the right way round. */
+  :root:is([data-msgd-page="dim"], [data-msgd-page="white"]) :is(.kix-page-paginated, .kix-page-compact) :is(img, video, picture, image) {
+    filter: none !important;
+  }
+
+  /* ---------- Clean up ---------- */
+  :root[data-msgd-nogemini] :is([aria-label*="Gemini"], [data-tooltip*="Gemini"]) { display: none !important; }
+  :root[data-msgd-nohelpme] :is([aria-label^="Help me"], [data-tooltip^="Help me"]) { display: none !important; }
+  :root[data-msgd-nomeet] :is([aria-label^="Join a call"], [aria-label*="Google Meet"], [data-tooltip*="Google Meet"]) { display: none !important; }
+  /* Side panel: the column of Calendar, Keep, Tasks and Contacts icons on the right. */
+  :root[data-msgd-noside] :is(.companion-app-switcher-container, .docs-companion-app-switcher-container, #docs-companion-app-switcher) {
+    display: none !important;
+  }
+  :root[data-msgd-thin] * { scrollbar-width: thin; }
+}
