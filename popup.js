@@ -21,7 +21,7 @@ const TABS = [
         wide: true,
         title: 'Dark mode in',
         checks: [
-          ['appDocs', 'Docs'], ['appSheets', 'Sheets'], ['appSlides', 'Slides'], ['appForms', 'Forms'],
+          ['appDocs', 'Docs'], ['appSheets', 'Sheets'], ['appSlides', 'Slides'], ['appForms', 'Forms'], ['appGmail', 'Gmail'],
         ],
       },
     ],
@@ -47,7 +47,7 @@ const TABS = [
 ];
 
 const APP_NAMES = {
-  appDocs: 'Docs', appSheets: 'Sheets', appSlides: 'Slides', appForms: 'Forms',
+  appDocs: 'Docs', appSheets: 'Sheets', appSlides: 'Slides', appForms: 'Forms', appGmail: 'Gmail',
 };
 
 const $ = (id) => document.getElementById(id);

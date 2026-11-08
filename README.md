@@ -1,6 +1,8 @@
-# More Settings for Google Docs
+# More Settings for Google Apps
 
-Firefox add-on: a fast dark mode for Google Docs, Sheets, Slides and Forms, plus clean-up options. It only runs on docs.google.com and touches no other site.
+Firefox add-on: a fast dark mode for Google Docs, Sheets, Slides, Forms and Gmail, plus clean-up options. It only runs on docs.google.com and mail.google.com and touches no other site.
+
+**Gmail:** Gmail's own dark theme leaves the emails themselves white, so this darkens the whole of Gmail, emails included. Set Gmail's theme to **Default** (Settings > Themes), or the two dark modes cancel out and Gmail turns light.
 
 ## Why it's fast
 
@@ -11,7 +13,7 @@ Most dark-mode add-ons watch every change on the page with JavaScript and rewrit
 - **Dark mode**: one switch at the top of the popup turns it on and off, darkness (charcoal like Claude's dark mode: #181818 with #ebebeb text, soft, dark grey, black), and the Docs page (dark, my colours, dimmed white, or normal so only the toolbars and menus around it are dark).
 - **My colours**: pick the Docs page's background and text colour (presets or hex), e.g. white text on black. It only changes what you see; the file, other people and printing keep the real colours. Coloured text keeps its colour.
 - **Pictures**: real colours, real but dimmed, or dark like the page.
-- **Dark mode in**: turn it off for Docs, Sheets, Slides or Forms. Drive and Calendar aren't included: they have Google's own dark theme.
+- **Dark mode in**: turn it off for Docs, Sheets, Slides, Forms or Gmail. Drive and Calendar aren't included: they have Google's own dark theme.
 - **Clean up**: hide Gemini, "Help me" chips, the Meet button and the right-hand side panel. Thin scrollbars.
 
 ## Try it

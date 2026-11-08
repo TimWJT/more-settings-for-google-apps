@@ -1,4 +1,4 @@
-/* More Settings for Google Docs - dark mode and clean-up.
+/* More Settings for Google Apps - dark mode and clean-up.
    How the dark mode stays fast: one colour filter on <html>, drawn by the GPU, instead of rewriting every element's
    colours with JS (which is what makes most dark-mode add-ons lag). The filter turns white into dark grey and keeps
    colours' hue (blue stays blue). Pictures get the exact opposite filter, so they come out in their real colours.
@@ -50,9 +50,9 @@
   }
 
   /* ---------- Clean up ----------
-     Editors only (Docs, Sheets, Slides, Forms), and only buttons and menu items, so a file or doc title
+     Editors (Docs, Sheets, Slides, Forms; Gemini also in Gmail), and only buttons and menu items, so a file or doc title
      like "Gemini notes" never disappears. */
-  :root[data-msgd-nogemini]:is([data-msgd-app="appDocs"], [data-msgd-app="appSheets"], [data-msgd-app="appSlides"], [data-msgd-app="appForms"])
+  :root[data-msgd-nogemini]:is([data-msgd-app="appDocs"], [data-msgd-app="appSheets"], [data-msgd-app="appSlides"], [data-msgd-app="appForms"], [data-msgd-app="appGmail"])
     :is(button, [role="button"], [role="menuitem"], [role="tab"]):is([aria-label*="Gemini"], [data-tooltip*="Gemini"]) { display: none !important; }
   :root[data-msgd-nohelpme]:is([data-msgd-app="appDocs"], [data-msgd-app="appSheets"], [data-msgd-app="appSlides"], [data-msgd-app="appForms"])
     :is(button, [role="button"], [role="menuitem"]):is([aria-label^="Help me"], [data-tooltip^="Help me"]) { display: none !important; }

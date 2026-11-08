@@ -12,6 +12,7 @@ const MSG_DEFAULTS = {
   appSheets: true,
   appSlides: true,
   appForms: true,
+  appGmail: true,
   // Clean up
   hideGemini: false,
   hideHelpMe: false,
@@ -36,6 +37,7 @@ const MSG_HEX = /^#[0-9a-f]{6}$/i;
 function msgAppFor(url) {
   let u;
   try { u = new URL(url); } catch { return null; }
+  if (u.hostname === 'mail.google.com') return 'appGmail';
   if (u.hostname !== 'docs.google.com') return null;
   if (u.pathname.startsWith('/spreadsheets')) return 'appSheets';
   if (u.pathname.startsWith('/presentation')) return 'appSlides';

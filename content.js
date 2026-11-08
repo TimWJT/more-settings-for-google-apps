@@ -1,4 +1,4 @@
-// More Settings for Google Docs - content script.
+// More Settings for Google Apps - content script.
 // Only sets attributes on <html> (and builds one tiny SVG filter for "My colours"); dark.css does all the work.
 // No MutationObservers, no per-element JS, so the page runs as fast as it does without the add-on.
 (() => {
