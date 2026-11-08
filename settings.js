@@ -14,7 +14,7 @@ const MSG_DEFAULTS = {
   appForms: true,
   appGmail: true,
   // Gmail (only the opened email is darkened; Gmail's own theme does the rest)
-  mailLevel: 'charcoal',
+  mailLevel: 'gmail',     // gmail (like Gmail's unread rows, #2c2c2c) | charcoal (Claude) | soft | grey | black
   mailImages: 'real',
   mailHideGemini: false,
   // Clean up (Docs apps)

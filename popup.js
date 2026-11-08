@@ -2,7 +2,7 @@
 
 // Every setting, grouped into one tab per app and cards. The Dark mode switch sits above the tabs.
 // switches: [key, label, hint]  ·  checks: [key, label]  ·  selects: [key, label, [[value, text], ...]]
-const LEVELS = [['charcoal', 'Charcoal'], ['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']];
+const LEVELS = [['charcoal', 'Charcoal (Claude)'], ['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']];
 const PICTURES = [['real', 'Real colours'], ['dim', 'Real, dimmed'], ['flip', 'Dark like the page']];
 const TABS = [
   {
@@ -43,7 +43,7 @@ const TABS = [
         title: 'Emails',
         note: "Gmail's own dark theme does the inbox. This darkens the emails themselves.",
         switches: [['appGmail', 'Dark emails', '']],
-        selects: [['mailLevel', 'Darkness', LEVELS], ['mailImages', 'Pictures', PICTURES]],
+        selects: [['mailLevel', 'Darkness', [['gmail', 'Like Gmail'], ...LEVELS]], ['mailImages', 'Pictures', PICTURES]],
       },
       {
         wide: true,

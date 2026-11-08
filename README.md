@@ -14,7 +14,7 @@ Most dark-mode add-ons watch every change on the page with JavaScript and rewrit
 - **My colours**: pick the Docs page's background and text colour (presets or hex), e.g. white text on black. It only changes what you see; the file, other people and printing keep the real colours. Coloured text keeps its colour.
 - **Pictures**: real colours, real but dimmed, or dark like the page.
 - **Popup tabs**: one Dark mode switch on top, then a tab per app (Docs, Gmail, General). The popup opens on the tab for the site you're on.
-- **Gmail tab**: dark emails on/off, their own darkness and pictures setting, hide Gemini in Gmail.
+- **Gmail tab**: dark emails on/off, their own darkness (default "Like Gmail": #2c2c2c with white text, like Gmail's unread rows; Charcoal (Claude) still there) and pictures setting, hide Gemini in Gmail.
 - **Dark in**: turn it off for Docs, Sheets, Slides or Forms. Drive and Calendar aren't included: they have Google's own dark theme.
 - **Hide** (Docs apps): Gemini, "Help me" chips and the right-hand side panel are hidden by default; the Meet button is optional.
 - **General**: thin scrollbars (off by default).

@@ -5,7 +5,7 @@
   'use strict';
   const root = document.documentElement;
   const app = msgAppFor(location.href);
-  const LEVEL_A = { charcoal: 0.9074, soft: 0.82, grey: 0.88, black: 1 };
+  const LEVEL_A = { gmail: 0.8528, charcoal: 0.9074, soft: 0.82, grey: 0.88, black: 1 };
   // Slides "present" pages show slides full size: never darken them.
   const presenting = app === 'appSlides' && /\/present(\/|$)/.test(location.pathname);
   let s = { ...MSG_DEFAULTS };

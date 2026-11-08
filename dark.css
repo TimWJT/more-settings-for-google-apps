@@ -12,6 +12,7 @@
   :root { --msgd-a: 0.9074; --msgd-k: 1.2273; --msgd-b: 1.016; --msgd-ib: 0.9843; }   /* charcoal (Claude-like): #181818, text #ebebeb */
   :root[data-msgd-level="grey"] { --msgd-a: 0.88; --msgd-k: 1.3158; --msgd-b: 1; --msgd-ib: 1; }    /* #1f1f1f, text #e0e0e0 */
   :root[data-msgd-level="soft"] { --msgd-a: 0.82; --msgd-k: 1.5625; --msgd-b: 1; --msgd-ib: 1; }   /* #2e2e2e */
+  :root[data-msgd-level="gmail"] { --msgd-a: 0.8528; --msgd-k: 1.4171; --msgd-b: 1.1725; --msgd-ib: 0.8528; }  /* like Gmail's unread rows: #2c2c2c, text #fff */
   :root[data-msgd-level="black"] { --msgd-a: 1; --msgd-k: 1; --msgd-b: 1; --msgd-ib: 1; }          /* #000 */
 
   /* ---------- Dark mode (on unless content.js sets data-msgd-off, so no white flash on load) ---------- */
