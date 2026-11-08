@@ -25,17 +25,19 @@
   /* Pictures and video: real colours, or real colours but dimmed. ("flip" = no rule: they go dark with the page.)
      (No "picture" element: its <img> already matches.) */
   :root[data-msgd-img="real"]:not([data-msgd-off]):not([data-msgd-fs]):not([data-msgd-app="appGmail"]) :is(img, video, image),
-  :root[data-msgd-img="real"][data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) .a3s :is(img, video, image) {
+  :root[data-msgd-img="real"][data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) :is([role="main"]:has(.a3s), .a3s) :is(img, video, image) {
     filter: brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
   :root[data-msgd-img="dim"]:not([data-msgd-off]):not([data-msgd-fs]):not([data-msgd-app="appGmail"]) :is(img, video, image),
-  :root[data-msgd-img="dim"][data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) .a3s :is(img, video, image) {
+  :root[data-msgd-img="dim"][data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) :is([role="main"]:has(.a3s), .a3s) :is(img, video, image) {
     filter: brightness(0.78) brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
 
-  /* Gmail: Gmail's own dark theme leaves the emails themselves white, so only the email's content (.a3s) is
-     darkened, with the same filter. The white background is set so emails without one still come out dark. */
-  :root[data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) .a3s {
+  /* Gmail: Gmail's own dark theme leaves an opened email on a white card, so only that card is darkened, with
+     the same filter: the main area while it holds an email (.a3s = email content). The toolbar above it and the
+     inbox are left to Gmail's theme. Fallback: an email outside the main area (e.g. a pop-out) gets just its content.
+     The white background is set so parts without one still come out dark. */
+  :root[data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) :is([role="main"]:has(.a3s), .a3s:not([role="main"] .a3s)) {
     filter: invert(var(--msgd-a)) hue-rotate(180deg) brightness(var(--msgd-b)) !important;
     background-color: #fff !important;
   }
