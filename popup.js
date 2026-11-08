@@ -1,35 +1,30 @@
 'use strict';
 
-// Every setting, grouped into tabs and cards.
+// Every setting, grouped into one tab per app and cards. The Dark mode switch sits above the tabs.
 // switches: [key, label, hint]  ·  checks: [key, label]  ·  selects: [key, label, [[value, text], ...]]
+const LEVELS = [['charcoal', 'Charcoal'], ['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']];
+const PICTURES = [['real', 'Real colours'], ['dim', 'Real, dimmed'], ['flip', 'Dark like the page']];
 const TABS = [
   {
-    id: 'dark', label: 'Dark mode',
+    id: 'docs', label: 'Docs',
     cards: [
-      { wide: true, master: true },
       {
         wide: true,
         title: 'Look',
         selects: [
-          ['level', 'Darkness', [['charcoal', 'Charcoal'], ['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']]],
+          ['level', 'Darkness', LEVELS],
           ['docPage', 'Docs page', [['dark', 'Dark'], ['custom', 'My colours'], ['dim', 'Dimmed white'], ['white', 'Normal (only the rest is dark)']]],
-          ['imageMode', 'Pictures', [['real', 'Real colours'], ['dim', 'Real, dimmed'], ['flip', 'Dark like the page']]],
+          ['imageMode', 'Pictures', PICTURES],
         ],
       },
       { wide: true, title: 'Docs page colours', colours: true },
       {
         wide: true,
-        title: 'Dark mode in',
-        checks: [
-          ['appDocs', 'Docs'], ['appSheets', 'Sheets'], ['appSlides', 'Slides'], ['appForms', 'Forms'], ['appGmail', 'Gmail'],
-        ],
+        title: 'Dark in',
+        checks: [['appDocs', 'Docs'], ['appSheets', 'Sheets'], ['appSlides', 'Slides'], ['appForms', 'Forms']],
       },
-    ],
-  },
-  {
-    id: 'cleanup', label: 'Clean up',
-    cards: [
       {
+        wide: true,
         title: 'Hide',
         switches: [
           ['hideGemini', 'Gemini', 'Gemini buttons and side panel'],
@@ -38,13 +33,33 @@ const TABS = [
           ['hideSidePanel', 'Side panel', 'Calendar, Keep, Tasks icons on the right'],
         ],
       },
+    ],
+  },
+  {
+    id: 'gmail', label: 'Gmail',
+    cards: [
       {
-        title: 'Look',
-        switches: [['thinScrollbars', 'Thin scrollbars', '']],
+        wide: true,
+        title: 'Emails',
+        note: "Gmail's own dark theme does the inbox. This darkens the emails themselves.",
+        switches: [['appGmail', 'Dark emails', '']],
+        selects: [['mailLevel', 'Darkness', LEVELS], ['mailImages', 'Pictures', PICTURES]],
+      },
+      {
+        wide: true,
+        title: 'Hide',
+        switches: [['mailHideGemini', 'Gemini', 'Gemini buttons in Gmail']],
       },
     ],
   },
+  {
+    id: 'general', label: 'General',
+    cards: [
+      { wide: true, title: 'Look', switches: [['thinScrollbars', 'Thin scrollbars', 'In every app']] },
+    ],
+  },
 ];
+const TAB_FOR_APP = { appDocs: 'docs', appSheets: 'docs', appSlides: 'docs', appForms: 'docs', appGmail: 'gmail' };
 
 const APP_NAMES = {
   appDocs: 'Docs', appSheets: 'Sheets', appSlides: 'Slides', appForms: 'Forms', appGmail: 'Gmail',
@@ -111,7 +126,7 @@ function masterBlock() {
 function renderNote(note = $('master-note')) {
   if (!note) return;
   let text = 'Switch off to see Google\'s normal colours';
-  if (tabApp && current[tabApp] === false) text = `Off for ${APP_NAMES[tabApp]} (tick it below)`;
+  if (tabApp && current[tabApp] === false) text = `Off for ${APP_NAMES[tabApp]} (turn it on in the ${APP_NAMES[tabApp] === 'Gmail' ? 'Gmail' : 'Docs'} tab)`;
   note.textContent = text;
 }
 
@@ -159,7 +174,6 @@ function renderColours() {
 function card(c) {
   return h('section', { class: 'card' + (c.wide ? ' wide' : '') + (c.colours ? ' colours-card' : '') },
     c.title ? h('h2', {}, c.title) : null,
-    c.master ? masterBlock() : null,
     c.colours ? coloursBlock() : null,
     c.note ? h('small', { class: 'note' }, c.note) : null,
     ...(c.switches || []).map(switchRow),
@@ -180,6 +194,7 @@ function selectTab(id, focus = false) {
 }
 
 function render() {
+  $('master').append(masterBlock());
   const tabs = $('tabs');
   const panels = $('panels');
   for (const tab of TABS) {
@@ -200,8 +215,9 @@ function render() {
     else return;
     e.preventDefault();
   });
-  let start = null;
-  try { start = localStorage.getItem('gd-tab'); } catch { /* ignore */ }
+  // Open the tab for the app you're on; elsewhere, the last one used.
+  let start = TAB_FOR_APP[tabApp] || null;
+  if (!start) try { start = localStorage.getItem('gd-tab'); } catch { /* ignore */ }
   selectTab(TABS.some((t) => t.id === start) ? start : TABS[0].id);
   renderColours();
 }

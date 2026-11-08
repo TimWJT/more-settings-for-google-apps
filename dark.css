@@ -15,7 +15,7 @@
   :root[data-msgd-level="black"] { --msgd-a: 1; --msgd-k: 1; --msgd-b: 1; --msgd-ib: 1; }          /* #000 */
 
   /* ---------- Dark mode (on unless content.js sets data-msgd-off, so no white flash on load) ---------- */
-  :root:not([data-msgd-off]):not([data-msgd-fs]) {
+  :root:not([data-msgd-off]):not([data-msgd-fs]):not([data-msgd-app="appGmail"]) {
     filter: invert(var(--msgd-a)) hue-rotate(180deg) brightness(var(--msgd-b)) !important;
     background-color: #fff !important;   /* becomes the dark background */
     min-height: 100%;
@@ -24,11 +24,20 @@
 
   /* Pictures and video: real colours, or real colours but dimmed. ("flip" = no rule: they go dark with the page.)
      (No "picture" element: its <img> already matches.) */
-  :root[data-msgd-img="real"]:not([data-msgd-off]):not([data-msgd-fs]) :is(img, video, image) {
+  :root[data-msgd-img="real"]:not([data-msgd-off]):not([data-msgd-fs]):not([data-msgd-app="appGmail"]) :is(img, video, image),
+  :root[data-msgd-img="real"][data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) .a3s :is(img, video, image) {
     filter: brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
-  :root[data-msgd-img="dim"]:not([data-msgd-off]):not([data-msgd-fs]) :is(img, video, image) {
+  :root[data-msgd-img="dim"]:not([data-msgd-off]):not([data-msgd-fs]):not([data-msgd-app="appGmail"]) :is(img, video, image),
+  :root[data-msgd-img="dim"][data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) .a3s :is(img, video, image) {
     filter: brightness(0.78) brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+  }
+
+  /* Gmail: Gmail's own dark theme leaves the emails themselves white, so only the email's content (.a3s) is
+     darkened, with the same filter. The white background is set so emails without one still come out dark. */
+  :root[data-msgd-app="appGmail"]:not([data-msgd-off]):not([data-msgd-fs]) .a3s {
+    filter: invert(var(--msgd-a)) hue-rotate(180deg) brightness(var(--msgd-b)) !important;
+    background-color: #fff !important;
   }
 
   /* Docs: the page you type on. "dim" = light page but not glaring, "white" = normal page, only the rest is dark. */
@@ -50,7 +59,7 @@
   }
 
   /* ---------- Clean up ----------
-     Editors (Docs, Sheets, Slides, Forms; Gemini also in Gmail), and only buttons and menu items, so a file or doc title
+     Editors (Docs, Sheets, Slides, Forms; Gemini also in Gmail, with its own setting), and only buttons and menu items, so a file or doc title
      like "Gemini notes" never disappears. */
   :root[data-msgd-nogemini]:is([data-msgd-app="appDocs"], [data-msgd-app="appSheets"], [data-msgd-app="appSlides"], [data-msgd-app="appForms"], [data-msgd-app="appGmail"])
     :is(button, [role="button"], [role="menuitem"], [role="tab"]):is([aria-label*="Gemini"], [data-tooltip*="Gemini"]) { display: none !important; }

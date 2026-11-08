@@ -83,7 +83,9 @@
     const dark = !presenting && s.darkMode && s[app] !== false;
     root.toggleAttribute('data-msgd-off', !dark);
     try { localStorage.setItem(OFF_KEY, dark ? '0' : '1'); } catch { /* blocked */ }
-    if (root.getAttribute('data-msgd-level') !== s.level) root.setAttribute('data-msgd-level', s.level);
+    const mail = app === 'appGmail';
+    const level = mail ? s.mailLevel : s.level;
+    if (root.getAttribute('data-msgd-level') !== level) root.setAttribute('data-msgd-level', level);
 
     let page = s.docPage;
     const custom = page === 'custom' && dark && app === 'appDocs'
@@ -99,8 +101,9 @@
     }
     if (root.getAttribute('data-msgd-page') !== page) root.setAttribute('data-msgd-page', page);
 
-    if (root.getAttribute('data-msgd-img') !== s.imageMode) root.setAttribute('data-msgd-img', s.imageMode);
-    root.toggleAttribute('data-msgd-nogemini', !!s.hideGemini);
+    const img = mail ? s.mailImages : s.imageMode;
+    if (root.getAttribute('data-msgd-img') !== img) root.setAttribute('data-msgd-img', img);
+    root.toggleAttribute('data-msgd-nogemini', !!(mail ? s.mailHideGemini : s.hideGemini));
     root.toggleAttribute('data-msgd-nohelpme', !!s.hideHelpMe);
     root.toggleAttribute('data-msgd-nomeet', !!s.hideMeet);
     root.toggleAttribute('data-msgd-noside', !!s.hideSidePanel);

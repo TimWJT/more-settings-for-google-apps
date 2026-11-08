@@ -13,12 +13,16 @@ const MSG_DEFAULTS = {
   appSlides: true,
   appForms: true,
   appGmail: true,
-  // Clean up
-  hideGemini: false,
-  hideHelpMe: false,
+  // Gmail (only the opened email is darkened; Gmail's own theme does the rest)
+  mailLevel: 'charcoal',
+  mailImages: 'real',
+  mailHideGemini: false,
+  // Clean up (Docs apps)
+  hideGemini: true,
+  hideHelpMe: true,
   hideMeet: false,
-  hideSidePanel: false,
-  thinScrollbars: true,
+  hideSidePanel: true,
+  thinScrollbars: false,
 };
 
 // Ready-made page colour pairs for the custom Docs page: [name, background, text].
