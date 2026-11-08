@@ -80,7 +80,9 @@
   }
 
   function apply() {
-    const dark = !presenting && s.darkMode && s[app] !== false;
+    // Power button off: no dark mode and no clean-up (every option treated as off; saved options stay as they are).
+    const on = s.enabled !== false;
+    const dark = on && !presenting && s.darkMode && s[app] !== false;
     root.toggleAttribute('data-msgd-off', !dark);
     try { localStorage.setItem(OFF_KEY, dark ? '0' : '1'); } catch { /* blocked */ }
     const mail = app === 'appGmail';
@@ -103,16 +105,17 @@
 
     const img = mail ? s.mailImages : s.imageMode;
     if (root.getAttribute('data-msgd-img') !== img) root.setAttribute('data-msgd-img', img);
-    root.toggleAttribute('data-msgd-nogemini', !!(mail ? s.mailHideGemini : s.hideGemini));
-    root.toggleAttribute('data-msgd-nohelpme', !!s.hideHelpMe);
-    root.toggleAttribute('data-msgd-nomeet', !!s.hideMeet);
-    root.toggleAttribute('data-msgd-noside', !!s.hideSidePanel);
-    root.toggleAttribute('data-msgd-thin', !!s.thinScrollbars);
+    root.toggleAttribute('data-msgd-nogemini', on && !!(mail ? s.mailHideGemini : s.hideGemini));
+    root.toggleAttribute('data-msgd-nohelpme', on && !!s.hideHelpMe);
+    root.toggleAttribute('data-msgd-nomeet', on && !!s.hideMeet);
+    root.toggleAttribute('data-msgd-noside', on && !!s.hideSidePanel);
+    root.toggleAttribute('data-msgd-thin', on && !!s.thinScrollbars);
     // Docs sizes the editor in JS; nudge it to re-measure when the side panel appears or goes.
-    if (sidePanelWas !== null && sidePanelWas !== !!s.hideSidePanel) {
+    const sideHidden = on && !!s.hideSidePanel;
+    if (sidePanelWas !== null && sidePanelWas !== sideHidden) {
       requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
     }
-    sidePanelWas = !!s.hideSidePanel;
+    sidePanelWas = sideHidden;
   }
 
   // Changes that arrive before the first load are kept, not overwritten by the older stored values.

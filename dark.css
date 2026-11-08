@@ -44,6 +44,13 @@
     background-color: #fff !important;
   }
 
+  /* Gmail loading screen: dark instead of white (#111 = Gmail's dark theme backdrop). Plain background colours,
+     no filter, so it costs nothing. #loading = Gmail's loading screen (logo + bar); hidden once Gmail has loaded. */
+  :root[data-msgd-app="appGmail"]:not([data-msgd-off]),
+  :root[data-msgd-app="appGmail"]:not([data-msgd-off]) :is(body, #loading) {
+    background-color: #111 !important;
+  }
+
   /* Docs: the page you type on. "dim" = light page but not glaring, "white" = normal page, only the rest is dark. */
   :root[data-msgd-page="dim"]:not([data-msgd-off]):not([data-msgd-fs]) :is(.kix-page-paginated, .kix-page-compact) {
     filter: brightness(0.82) brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;

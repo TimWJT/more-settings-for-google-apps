@@ -1,5 +1,6 @@
 // Default settings, shared by content.js and popup.js.
 const MSG_DEFAULTS = {
+  enabled: true,          // power button: false = the add-on changes nothing anywhere
   // Dark mode
   darkMode: true,
   level: 'charcoal',      // charcoal (like Claude's dark mode) | soft | grey | black

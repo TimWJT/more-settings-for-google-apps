@@ -12,6 +12,7 @@ Tick these off in Firefox while signed in.
 - [ ] Gmail (Gmail's Dark theme): opened emails are dark, including HTML newsletters (main area while it holds an email: `[role="main"]:has(> .nH > .iY)`)
 - [ ] Gmail: subject, sender and Reply buttons dark too; toolbar above and inbox untouched
 - [ ] Gmail: photos and logos inside emails keep real colours
+- [ ] Gmail: loading screen is dark (#111), not white (`#loading`, body)
 - [ ] Gmail: compose window and Hide Gemini work
 - [ ] Drive, Calendar and other sites are untouched
 - [ ] Profile photos keep real colours

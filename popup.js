@@ -222,6 +222,22 @@ function render() {
   renderColours();
 }
 
+// Power button (round, icon only: the add-on works on Google apps only). Pages update live (content.js listens), so no reload is needed.
+function showPower() {
+  const on = current.enabled !== false;
+  $('power').setAttribute('aria-checked', String(on));
+  $('power').title = on ? 'Turn the add-on off' : 'Turn the add-on on';
+  document.body.classList.toggle('off', !on);
+  $('rest').inert = !on;
+  $('off-msg').textContent = on ? '' : 'Off. Nothing is changed on Google Docs or Gmail.';
+  $('off-bar').hidden = on;
+}
+$('power').addEventListener('click', () => {
+  current.enabled = current.enabled === false;
+  showPower();
+  save({ enabled: current.enabled });
+});
+
 browser.storage.onChanged.addListener((changes, area) => {
   if (area !== 'local') return;
   for (const [k, { newValue }] of Object.entries(changes)) {
@@ -233,6 +249,7 @@ browser.storage.onChanged.addListener((changes, area) => {
   }
   renderNote();
   renderColours();
+  showPower();
 });
 
 Promise.all([
@@ -242,4 +259,5 @@ Promise.all([
   current = s;
   tabApp = tab?.url ? msgAppFor(tab.url) : null;
   render();
+  showPower();
 });
