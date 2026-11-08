@@ -2,7 +2,7 @@
 const MSG_DEFAULTS = {
   // Dark mode
   darkMode: true,
-  level: 'grey',          // soft | grey | black
+  level: 'charcoal',      // charcoal (like Claude's dark mode) | soft | grey | black
   docPage: 'dark',        // dark | dim | white | custom  (the page you type on in Docs)
   pageBg: '#000000',      // custom: what white on the page becomes
   pageText: '#ffffff',    // custom: what black text becomes
@@ -25,6 +25,7 @@ const MSG_DEFAULTS = {
 
 // Ready-made page colour pairs for the custom Docs page: [name, background, text].
 const MSG_PAGE_PRESETS = [
+  ['Charcoal', '#181818', '#ebebeb'],
   ['Black', '#000000', '#ffffff'],
   ['Graphite', '#1e1e1e', '#e6e6e6'],
   ['Night blue', '#0f1729', '#d6e2ff'],

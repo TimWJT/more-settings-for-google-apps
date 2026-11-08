@@ -3,18 +3,20 @@
    colours with JS (which is what makes most dark-mode add-ons lag). The filter turns white into dark grey and keeps
    colours' hue (blue stays blue). Pictures get the exact opposite filter, so they come out in their real colours.
 
-   Maths: invert(a) maps a colour c to a + c(1 - 2a). Undoing it is invert(1) then contrast(1 / (1 - 2a)),
-   so each level below has a matching --k. hue-rotate(180deg) twice is a full turn, so it undoes itself.
+   Maths: invert(a) maps a colour c to a + c(1 - 2a). Undoing it is invert(1) then contrast(1 / (2a - 1)),
+   so each level below has a matching --k. brightness(b) is undone by brightness(1/b) first. hue-rotate(180deg) twice is a full turn, so it undoes itself.
    content.js only sets attributes on <html>; it never touches anything else. */
 
 @media screen {
-  :root { --msgd-a: 0.88; --msgd-k: 1.3158; }              /* grey: white -> #1f1f1f, black text -> #e0e0e0 */
-  :root[data-msgd-level="soft"] { --msgd-a: 0.82; --msgd-k: 1.5625; }   /* #2e2e2e */
-  :root[data-msgd-level="black"] { --msgd-a: 1; --msgd-k: 1; }          /* #000 */
+  /* --msgd-b: brightness after the invert, so the dark and light ends can be set separately; --msgd-ib = 1 / b. */
+  :root { --msgd-a: 0.9074; --msgd-k: 1.2273; --msgd-b: 1.016; --msgd-ib: 0.9843; }   /* charcoal (Claude-like): #181818, text #ebebeb */
+  :root[data-msgd-level="grey"] { --msgd-a: 0.88; --msgd-k: 1.3158; --msgd-b: 1; --msgd-ib: 1; }    /* #1f1f1f, text #e0e0e0 */
+  :root[data-msgd-level="soft"] { --msgd-a: 0.82; --msgd-k: 1.5625; --msgd-b: 1; --msgd-ib: 1; }   /* #2e2e2e */
+  :root[data-msgd-level="black"] { --msgd-a: 1; --msgd-k: 1; --msgd-b: 1; --msgd-ib: 1; }          /* #000 */
 
   /* ---------- Dark mode (on unless content.js sets data-msgd-off, so no white flash on load) ---------- */
   :root:not([data-msgd-off]):not([data-msgd-fs]) {
-    filter: invert(var(--msgd-a)) hue-rotate(180deg) !important;
+    filter: invert(var(--msgd-a)) hue-rotate(180deg) brightness(var(--msgd-b)) !important;
     background-color: #fff !important;   /* becomes the dark background */
     min-height: 100%;
     color-scheme: light !important;      /* the filter does the darkening; native dark widgets would be double-flipped */
@@ -22,15 +24,15 @@
 
   /* Real colours for pictures, avatars, thumbnails and video. (No "picture": its <img> already matches.) */
   :root[data-msgd-img]:not([data-msgd-off]):not([data-msgd-fs]) :is(img, video, image) {
-    filter: hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+    filter: brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
 
   /* Docs: the page you type on. "dim" = light page but not glaring, "white" = normal white page. */
   :root[data-msgd-page="dim"]:not([data-msgd-off]):not([data-msgd-fs]) :is(.kix-page-paginated, .kix-page-compact) {
-    filter: brightness(0.82) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+    filter: brightness(0.82) brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
   :root[data-msgd-page="white"]:not([data-msgd-off]):not([data-msgd-fs]) :is(.kix-page-paginated, .kix-page-compact) {
-    filter: hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+    filter: brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
   /* "My colours": #msgd-page-map (built by content.js) maps white -> your background and black -> your text,
      and already undoes the page-wide filter, so the result is your exact colours. Docs page only. */

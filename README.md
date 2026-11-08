@@ -8,7 +8,7 @@ Most dark-mode add-ons watch every change on the page with JavaScript and rewrit
 
 ## Settings
 
-- **Dark mode**: on/off (Alt+Shift+D), darkness (soft, dark grey, black), and the Docs page (dark, my colours, dimmed white, white).
+- **Dark mode**: on/off (Alt+Shift+D), darkness (charcoal like Claude's dark mode: #181818 with #ebebeb text, soft, dark grey, black), and the Docs page (dark, my colours, dimmed white, white).
 - **My colours**: pick the Docs page's background and text colour (presets or hex), e.g. white text on black. It only changes what you see; the file, other people and printing keep the real colours. Coloured text keeps its colour.
 - **Pictures**: keep photos, avatars and Drive thumbnails in real colours.
 - **Apps**: turn dark mode off for any of the seven apps.
@@ -23,6 +23,7 @@ Most dark-mode add-ons watch every change on the page with JavaScript and rewrit
 ## Known limits
 
 - Docs draws text and pictures inside the document onto one canvas, so pictures *inside a doc* get flipped with the page in "Dark" mode. Set **Docs page** to "Dimmed white" or "White" to see them in true colours.
+- Photos keep their colours, but very strong colours (bright red, yellow) look a little muted. That's the price of the one-filter approach; fixing it would mean per-element JS, which is what lags.
 - Inside pop-up frames (share dialog, file picker), photos may show as negatives.
 - If you use Google's own dark theme in an app, untick that app, or it comes out light.
 - The clean-up selectors were written without inspecting a signed-in Docs page. See TESTING.md.

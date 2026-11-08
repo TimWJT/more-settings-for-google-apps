@@ -10,7 +10,7 @@ const TABS = [
       {
         title: 'Look',
         selects: [
-          ['level', 'Darkness', [['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']]],
+          ['level', 'Darkness', [['charcoal', 'Charcoal'], ['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']]],
           ['docPage', 'Docs page', [['dark', 'Dark'], ['custom', 'My colours'], ['dim', 'Dimmed white'], ['white', 'White']]],
         ],
       },

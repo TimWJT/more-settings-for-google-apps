@@ -5,7 +5,7 @@
   'use strict';
   const root = document.documentElement;
   const app = msgAppFor(location.href);
-  const LEVEL_A = { soft: 0.82, grey: 0.88, black: 1 };
+  const LEVEL_A = { charcoal: 0.9074, soft: 0.82, grey: 0.88, black: 1 };
   // Slides "present" pages show slides full size: never darken them.
   const presenting = app === 'appSlides' && /\/present(\/|$)/.test(location.pathname);
   let s = { ...MSG_DEFAULTS };
@@ -75,6 +75,8 @@
     // The page-wide filter (and the picture fix) use the raised a.
     root.style.setProperty('--msgd-a', String(a));
     root.style.setProperty('--msgd-k', String(1 / (2 * a - 1)));
+    root.style.setProperty('--msgd-b', '1');
+    root.style.setProperty('--msgd-ib', '1');
   }
 
   function apply() {
@@ -92,6 +94,8 @@
       if (page === 'custom') page = 'dark';
       root.style.removeProperty('--msgd-a');
       root.style.removeProperty('--msgd-k');
+      root.style.removeProperty('--msgd-b');
+      root.style.removeProperty('--msgd-ib');
     }
     if (root.getAttribute('data-msgd-page') !== page) root.setAttribute('data-msgd-page', page);
 

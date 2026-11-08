@@ -177,7 +177,7 @@ select option { background: #222; }
 /* Docs page colours */
 .colours { display: grid; gap: 10px; }
 .colours-card.inactive .swatches { opacity: .7; }
-.swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.swatches { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
 .swatch {
   height: 42px;
   border: 2px solid var(--line);
