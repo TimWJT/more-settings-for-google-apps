@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "More Settings for Google Apps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fast dark mode for Google Docs, Sheets, Slides, Forms and Gmail (emails included), with your own page colours, plus clean-up options like hiding Gemini and the side panel.",
   "icons": {
     "48": "icon.svg",
