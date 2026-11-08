@@ -11,9 +11,10 @@ const TABS = [
         title: 'Look',
         selects: [
           ['level', 'Darkness', [['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']]],
-          ['docPage', 'Docs page', [['dark', 'Dark'], ['dim', 'Dimmed white'], ['white', 'White']]],
+          ['docPage', 'Docs page', [['dark', 'Dark'], ['custom', 'My colours'], ['dim', 'Dimmed white'], ['white', 'White']]],
         ],
       },
+      { wide: true, title: 'Docs page colours', colours: true },
       {
         title: 'Pictures',
         switches: [['keepImages', 'Real colours', 'Photos, avatars and Drive thumbnails aren\'t flipped']],
@@ -33,6 +34,7 @@ const TABS = [
         title: ' ',
         checks: [['appDrive', 'Drive'], ['appCalendar', 'Calendar'], ['appKeep', 'Keep']],
       },
+      { wide: true, note: 'Using Google\'s own dark theme in an app (like Calendar or Keep)? Untick it here, or it will come out light.' },
     ],
   },
   {
@@ -125,10 +127,53 @@ function renderNote(note = $('master-note')) {
   note.textContent = text;
 }
 
+// ---------- My colours ----------
+// Swatches plus hex boxes. No <input type="color">: Firefox closes the popup when its colour dialog opens.
+function coloursBlock() {
+  const swatches = MSG_PAGE_PRESETS.map(([name, bg, text]) =>
+    h('button', {
+      type: 'button', class: 'swatch', title: name, 'aria-label': name, 'data-bg': bg, 'data-text': text,
+      style: `background:${bg};color:${text}`,
+      onclick: () => save({ docPage: 'custom', pageBg: bg, pageText: text }),
+    }, 'Aa'));
+  const hexField = (key, label) => {
+    const id = 'hex-' + key;
+    const input = h('input', { id, type: 'text', class: 'hex', maxlength: '7', spellcheck: 'false', autocomplete: 'off' });
+    input.value = current[key];
+    const commit = () => {
+      let v = input.value.trim();
+      if (!v.startsWith('#')) v = '#' + v;
+      if (MSG_HEX.test(v)) { input.classList.remove('bad'); save({ docPage: 'custom', [key]: v.toLowerCase() }); }
+      else input.classList.add('bad');
+    };
+    input.addEventListener('change', commit);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') commit(); });
+    bound.set(key, [input]);
+    return h('label', { class: 'step-field', for: id }, label, input);
+  };
+  const block = h('div', { class: 'colours' },
+    h('div', { class: 'swatches' }, ...swatches),
+    h('div', { class: 'hexes' }, hexField('pageBg', 'Background'), hexField('pageText', 'Text')),
+    h('small', {}, 'Only changes what you see. The file, other people and printing keep the real colours.'));
+  return block;
+}
+
+function renderColours() {
+  for (const b of document.querySelectorAll('.swatch')) {
+    const on = current.docPage === 'custom'
+      && b.dataset.bg === current.pageBg.toLowerCase() && b.dataset.text === current.pageText.toLowerCase();
+    b.setAttribute('aria-pressed', String(on));
+  }
+  const card = document.querySelector('.card.colours-card');
+  if (card) card.classList.toggle('inactive', current.docPage !== 'custom');
+}
+
 function card(c) {
-  return h('section', { class: 'card' + (c.wide ? ' wide' : '') },
+  return h('section', { class: 'card' + (c.wide ? ' wide' : '') + (c.colours ? ' colours-card' : '') },
     c.title ? h('h2', {}, c.title) : null,
     c.master ? masterBlock() : null,
+    c.colours ? coloursBlock() : null,
+    c.note ? h('small', { class: 'note' }, c.note) : null,
     ...(c.switches || []).map(switchRow),
     ...(c.selects || []).map(selectRow),
     c.checks ? h('div', { class: 'checks' }, ...c.checks.map(checkRow)) : null);
@@ -170,6 +215,7 @@ function render() {
   let start = null;
   try { start = localStorage.getItem('gd-tab'); } catch { /* ignore */ }
   selectTab(TABS.some((t) => t.id === start) ? start : TABS[0].id);
+  renderColours();
 }
 
 browser.storage.onChanged.addListener((changes, area) => {
@@ -177,11 +223,12 @@ browser.storage.onChanged.addListener((changes, area) => {
   for (const [k, { newValue }] of Object.entries(changes)) {
     current[k] = newValue ?? MSG_DEFAULTS[k];
     for (const el of bound.get(k) || []) {
-      if (el.tagName === 'SELECT') el.value = current[k];
+      if (el.tagName === 'SELECT' || el.type === 'text') { el.value = current[k]; el.classList.remove('bad'); }
       else el.checked = !!current[k];
     }
   }
   renderNote();
+  renderColours();
 });
 
 Promise.all([

@@ -6,6 +6,8 @@ Tick these off in Firefox while signed in.
 - [ ] Docs: no white flash when opening a doc
 - [ ] Docs: typing and scrolling a long doc feels as smooth as with the add-on off
 - [ ] Docs page "Dimmed white" and "White" make only the page light (selectors `.kix-page-paginated`, `.kix-page-compact` for pageless)
+- [ ] My colours: each swatch gives exactly those colours on the page; red text stays red, links stay blue
+- [ ] My colours: long doc scrolls smoothly (SVG filter on the page)
 - [ ] Sheets, Slides, Forms, Drive, Calendar, Keep look right
 - [ ] Profile photos and Drive thumbnails keep real colours
 - [ ] Slides: presenting (fullscreen) shows true colours

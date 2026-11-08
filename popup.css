@@ -173,3 +173,34 @@ select option { background: #222; }
 .step-field { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14.5px; padding: 6px 0; }
 .row.big .name { font-size: 19px; }
 .row.big { padding: 2px 0; }
+
+/* Docs page colours */
+.colours { display: grid; gap: 10px; }
+.colours-card.inactive .swatches { opacity: .7; }
+.swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.swatch {
+  height: 42px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 650;
+  font-family: Georgia, serif;
+  transition: border-color .12s linear;
+}
+.swatch:hover { border-color: var(--input-hover); }
+.swatch[aria-pressed="true"] { border-color: var(--accent); }
+.swatch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hexes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hex {
+  width: 92px;
+  font: 13.5px ui-monospace, Consolas, monospace;
+  color: var(--text);
+  background: var(--input);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+}
+.hex:focus-visible { outline: none; border-color: var(--accent); }
+.hex.bad { border-color: var(--error); }
+.colours small { color: var(--muted); font-size: 12px; }
+.card .note { color: var(--muted); font-size: 12.5px; }
