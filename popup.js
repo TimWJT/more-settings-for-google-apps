@@ -8,33 +8,22 @@ const TABS = [
     cards: [
       { wide: true, master: true },
       {
+        wide: true,
         title: 'Look',
         selects: [
           ['level', 'Darkness', [['charcoal', 'Charcoal'], ['soft', 'Soft'], ['grey', 'Dark grey'], ['black', 'Black']]],
-          ['docPage', 'Docs page', [['dark', 'Dark'], ['custom', 'My colours'], ['dim', 'Dimmed white'], ['white', 'White']]],
+          ['docPage', 'Docs page', [['dark', 'Dark'], ['custom', 'My colours'], ['dim', 'Dimmed white'], ['white', 'Normal (only the rest is dark)']]],
+          ['imageMode', 'Pictures', [['real', 'Real colours'], ['dim', 'Real, dimmed'], ['flip', 'Dark like the page']]],
         ],
       },
       { wide: true, title: 'Docs page colours', colours: true },
       {
-        title: 'Pictures',
-        switches: [['keepImages', 'Real colours', 'Photos, avatars and Drive thumbnails aren\'t flipped']],
-      },
-    ],
-  },
-  {
-    id: 'apps', label: 'Apps',
-    cards: [
-      {
+        wide: true,
         title: 'Dark mode in',
         checks: [
           ['appDocs', 'Docs'], ['appSheets', 'Sheets'], ['appSlides', 'Slides'], ['appForms', 'Forms'],
         ],
       },
-      {
-        title: ' ',
-        checks: [['appDrive', 'Drive'], ['appCalendar', 'Calendar'], ['appKeep', 'Keep']],
-      },
-      { wide: true, note: 'Using Google\'s own dark theme in an app (like Calendar or Keep)? Untick it here, or it will come out light.' },
     ],
   },
   {
@@ -59,7 +48,6 @@ const TABS = [
 
 const APP_NAMES = {
   appDocs: 'Docs', appSheets: 'Sheets', appSlides: 'Slides', appForms: 'Forms',
-  appDrive: 'Drive', appCalendar: 'Calendar', appKeep: 'Keep',
 };
 
 const $ = (id) => document.getElementById(id);
@@ -78,7 +66,7 @@ function h(tag, props = {}, ...kids) {
   return n;
 }
 
-// Inputs stay in sync with storage (Alt+Shift+D or another window can change a setting while the popup is open).
+// Inputs stay in sync with storage (another window can change a setting while the popup is open).
 const bound = new Map();
 function bindInput(input, key) {
   input.checked = !!current[key];
@@ -122,8 +110,8 @@ function masterBlock() {
 
 function renderNote(note = $('master-note')) {
   if (!note) return;
-  let text = 'Alt+Shift+D turns it on and off';
-  if (tabApp && current[tabApp] === false) text = `Off for ${APP_NAMES[tabApp]} (see Apps)`;
+  let text = 'Switch off to see Google\'s normal colours';
+  if (tabApp && current[tabApp] === false) text = `Off for ${APP_NAMES[tabApp]} (tick it below)`;
   note.textContent = text;
 }
 

@@ -1,6 +1,6 @@
 # More Settings for Google Docs
 
-Firefox add-on: a fast dark mode for Google Docs, Sheets, Slides, Forms, Drive, Calendar and Keep, plus clean-up options.
+Firefox add-on: a fast dark mode for Google Docs, Sheets, Slides and Forms, plus clean-up options. It only runs on docs.google.com and touches no other site.
 
 ## Why it's fast
 
@@ -8,10 +8,10 @@ Most dark-mode add-ons watch every change on the page with JavaScript and rewrit
 
 ## Settings
 
-- **Dark mode**: on/off (Alt+Shift+D), darkness (charcoal like Claude's dark mode: #181818 with #ebebeb text, soft, dark grey, black), and the Docs page (dark, my colours, dimmed white, white).
+- **Dark mode**: one switch at the top of the popup turns it on and off, darkness (charcoal like Claude's dark mode: #181818 with #ebebeb text, soft, dark grey, black), and the Docs page (dark, my colours, dimmed white, or normal so only the toolbars and menus around it are dark).
 - **My colours**: pick the Docs page's background and text colour (presets or hex), e.g. white text on black. It only changes what you see; the file, other people and printing keep the real colours. Coloured text keeps its colour.
-- **Pictures**: keep photos, avatars and Drive thumbnails in real colours.
-- **Apps**: turn dark mode off for any of the seven apps.
+- **Pictures**: real colours, real but dimmed, or dark like the page.
+- **Dark mode in**: turn it off for Docs, Sheets, Slides or Forms. Drive and Calendar aren't included: they have Google's own dark theme.
 - **Clean up**: hide Gemini, "Help me" chips, the Meet button and the right-hand side panel. Thin scrollbars.
 
 ## Try it
@@ -25,7 +25,6 @@ Most dark-mode add-ons watch every change on the page with JavaScript and rewrit
 - Docs draws text and pictures inside the document onto one canvas, so pictures *inside a doc* get flipped with the page in "Dark" mode. Set **Docs page** to "Dimmed white" or "White" to see them in true colours.
 - Photos keep their colours, but very strong colours (bright red, yellow) look a little muted. That's the price of the one-filter approach; fixing it would mean per-element JS, which is what lags.
 - Inside pop-up frames (share dialog, file picker), photos may show as negatives.
-- If you use Google's own dark theme in an app, untick that app, or it comes out light.
 - The clean-up selectors were written without inspecting a signed-in Docs page. See TESTING.md.
 
 ## Build

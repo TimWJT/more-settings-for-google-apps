@@ -8,12 +8,13 @@ Tick these off in Firefox while signed in.
 - [ ] Docs page "Dimmed white" and "White" make only the page light (selectors `.kix-page-paginated`, `.kix-page-compact` for pageless)
 - [ ] My colours: each swatch gives exactly those colours on the page; red text stays red, links stay blue
 - [ ] My colours: long doc scrolls smoothly (SVG filter on the page)
-- [ ] Sheets, Slides, Forms, Drive, Calendar, Keep look right
-- [ ] Profile photos and Drive thumbnails keep real colours
+- [ ] Sheets, Slides, Forms look right
+- [ ] Drive, Calendar and other sites are untouched
+- [ ] Profile photos keep real colours
 - [ ] Slides: presenting (fullscreen) shows true colours
 - [ ] Printing / print preview is normal (dark.css is screen-only)
-- [ ] Alt+Shift+D toggles; the popup switch follows it
-- [ ] Turning an app off in Apps turns it off live in that tab
+- [ ] The Dark mode switch turns it off and on live
+- [ ] Unticking an app under Dark mode in turns it off live in that tab
 
 ## Clean up (selectors still unconfirmed)
 - [ ] Hide Gemini: `[aria-label*="Gemini"]`

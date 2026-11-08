@@ -99,7 +99,7 @@
     }
     if (root.getAttribute('data-msgd-page') !== page) root.setAttribute('data-msgd-page', page);
 
-    root.toggleAttribute('data-msgd-img', !!s.keepImages);
+    if (root.getAttribute('data-msgd-img') !== s.imageMode) root.setAttribute('data-msgd-img', s.imageMode);
     root.toggleAttribute('data-msgd-nogemini', !!s.hideGemini);
     root.toggleAttribute('data-msgd-nohelpme', !!s.hideHelpMe);
     root.toggleAttribute('data-msgd-nomeet', !!s.hideMeet);

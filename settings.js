@@ -1,4 +1,4 @@
-// Default settings, shared by content.js, popup.js and background.js.
+// Default settings, shared by content.js and popup.js.
 const MSG_DEFAULTS = {
   // Dark mode
   darkMode: true,
@@ -6,15 +6,12 @@ const MSG_DEFAULTS = {
   docPage: 'dark',        // dark | dim | white | custom  (the page you type on in Docs)
   pageBg: '#000000',      // custom: what white on the page becomes
   pageText: '#ffffff',    // custom: what black text becomes
-  keepImages: true,       // pictures, avatars and thumbnails keep their real colours
+  imageMode: 'real',      // real | dim | flip  (photos and profile pictures)
   // Apps
   appDocs: true,
   appSheets: true,
   appSlides: true,
   appForms: true,
-  appDrive: true,
-  appCalendar: true,
-  appKeep: true,
   // Clean up
   hideGemini: false,
   hideHelpMe: false,
@@ -39,9 +36,6 @@ const MSG_HEX = /^#[0-9a-f]{6}$/i;
 function msgAppFor(url) {
   let u;
   try { u = new URL(url); } catch { return null; }
-  if (u.hostname === 'drive.google.com') return 'appDrive';
-  if (u.hostname === 'calendar.google.com') return 'appCalendar';
-  if (u.hostname === 'keep.google.com') return 'appKeep';
   if (u.hostname !== 'docs.google.com') return null;
   if (u.pathname.startsWith('/spreadsheets')) return 'appSheets';
   if (u.pathname.startsWith('/presentation')) return 'appSlides';

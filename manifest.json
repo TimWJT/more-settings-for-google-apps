@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "More Settings for Google Docs",
   "version": "1.0.0",
-  "description": "Fast dark mode for Google Docs, Sheets, Slides, Forms, Drive, Calendar and Keep, plus clean-up options like hiding Gemini and the side panel.",
+  "description": "Fast dark mode for Google Docs, Sheets, Slides and Forms, with your own page colours, plus clean-up options like hiding Gemini and the side panel.",
   "icons": {
     "48": "icon.svg",
     "96": "icon.svg"
@@ -12,36 +12,16 @@
     "default_popup": "popup.html",
     "default_title": "More Settings for Google Docs"
   },
-  "background": {
-    "scripts": [
-      "settings.js",
-      "background.js"
-    ]
-  },
-  "commands": {
-    "toggle-dark": {
-      "suggested_key": {
-        "default": "Alt+Shift+D"
-      },
-      "description": "Turn dark mode on or off"
-    }
-  },
   "permissions": [
     "storage"
   ],
   "host_permissions": [
-    "*://docs.google.com/*",
-    "*://drive.google.com/*",
-    "*://calendar.google.com/*",
-    "*://keep.google.com/*"
+    "*://docs.google.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "*://docs.google.com/*",
-        "*://drive.google.com/*",
-        "*://calendar.google.com/*",
-        "*://keep.google.com/*"
+        "*://docs.google.com/*"
       ],
       "css": [
         "dark.css"

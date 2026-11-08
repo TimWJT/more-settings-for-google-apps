@@ -22,12 +22,16 @@
     color-scheme: light !important;      /* the filter does the darkening; native dark widgets would be double-flipped */
   }
 
-  /* Real colours for pictures, avatars, thumbnails and video. (No "picture": its <img> already matches.) */
-  :root[data-msgd-img]:not([data-msgd-off]):not([data-msgd-fs]) :is(img, video, image) {
+  /* Pictures and video: real colours, or real colours but dimmed. ("flip" = no rule: they go dark with the page.)
+     (No "picture" element: its <img> already matches.) */
+  :root[data-msgd-img="real"]:not([data-msgd-off]):not([data-msgd-fs]) :is(img, video, image) {
     filter: brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
+  :root[data-msgd-img="dim"]:not([data-msgd-off]):not([data-msgd-fs]) :is(img, video, image) {
+    filter: brightness(0.78) brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
+  }
 
-  /* Docs: the page you type on. "dim" = light page but not glaring, "white" = normal white page. */
+  /* Docs: the page you type on. "dim" = light page but not glaring, "white" = normal page, only the rest is dark. */
   :root[data-msgd-page="dim"]:not([data-msgd-off]):not([data-msgd-fs]) :is(.kix-page-paginated, .kix-page-compact) {
     filter: brightness(0.82) brightness(var(--msgd-ib)) hue-rotate(180deg) invert(1) contrast(var(--msgd-k)) !important;
   }
@@ -46,8 +50,8 @@
   }
 
   /* ---------- Clean up ----------
-     Editors only (Docs, Sheets, Slides, Forms), and only buttons and menu items, so a Drive file or Calendar
-     event called "Gemini notes" never disappears. */
+     Editors only (Docs, Sheets, Slides, Forms), and only buttons and menu items, so a file or doc title
+     like "Gemini notes" never disappears. */
   :root[data-msgd-nogemini]:is([data-msgd-app="appDocs"], [data-msgd-app="appSheets"], [data-msgd-app="appSlides"], [data-msgd-app="appForms"])
     :is(button, [role="button"], [role="menuitem"], [role="tab"]):is([aria-label*="Gemini"], [data-tooltip*="Gemini"]) { display: none !important; }
   :root[data-msgd-nohelpme]:is([data-msgd-app="appDocs"], [data-msgd-app="appSheets"], [data-msgd-app="appSlides"], [data-msgd-app="appForms"])
