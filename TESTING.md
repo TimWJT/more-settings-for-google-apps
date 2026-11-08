@@ -9,7 +9,7 @@ Tick these off in Firefox while signed in.
 - [ ] My colours: each swatch gives exactly those colours on the page; red text stays red, links stay blue
 - [ ] My colours: long doc scrolls smoothly (SVG filter on the page)
 - [ ] Sheets, Slides, Forms look right
-- [ ] Gmail (Gmail's Dark theme): opened emails are dark, including HTML newsletters (main area while it holds an email: `[role="main"]:has(.a3s)`)
+- [ ] Gmail (Gmail's Dark theme): opened emails are dark, including HTML newsletters (main area while it holds an email: `[role="main"]:has(> .nH > .iY)`)
 - [ ] Gmail: subject, sender and Reply buttons dark too; toolbar above and inbox untouched
 - [ ] Gmail: photos and logos inside emails keep real colours
 - [ ] Gmail: compose window and Hide Gemini work
