@@ -131,6 +131,20 @@
     if (loaded) apply();
   });
 
+  // Gmail: is an email open? Gmail puts the email's id at the end of the address (#inbox/FMfcgz…, #search/x/FMfcgz…;
+  // pop-outs use ?th=…). The email-card rules in dark.css only switch on while this is set, so the inbox loads
+  // with no extra style work. Two cheap listeners on navigation, nothing watching the page.
+  if (app === 'appGmail') {
+    const mailOpen = () => /\/[A-Za-z0-9_-]{16,}(?:[/?]|$)/.test(location.hash) || /[?&]th=/.test(location.search);
+    const syncMail = () => {
+      const open = mailOpen();
+      if (root.hasAttribute('data-msgd-mailopen') !== open) root.toggleAttribute('data-msgd-mailopen', open);
+    };
+    syncMail();
+    window.addEventListener('hashchange', syncMail);
+    window.addEventListener('popstate', syncMail);
+  }
+
   // Presenting in Slides / fullscreen video: show true colours.
   document.addEventListener('fullscreenchange', () => {
     root.toggleAttribute('data-msgd-fs', !!document.fullscreenElement);
