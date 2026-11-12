@@ -31,7 +31,7 @@ Appearance
 dark mode, google docs, gmail, sheets, slides, night mode
 
 ## License
-All Rights Reserved (same as your other add-ons; the repo has no LICENSE file yet, so add one if you pick something else).
+All Rights Reserved (matches the LICENSE file in the repo).
 
 ## Support website
 https://github.com/TimWJT/more-settings-for-google-apps
