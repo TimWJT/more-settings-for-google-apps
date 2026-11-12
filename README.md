@@ -30,6 +30,7 @@ Most dark-mode add-ons watch every change on the page with JavaScript and rewrit
 - Docs draws text and pictures inside the document onto one canvas, so pictures *inside a doc* get flipped with the page in "Dark" mode. Set **Docs page** to "Dimmed white" or "White" to see them in true colours.
 - Photos keep their colours, but very strong colours (bright red, yellow) look a little muted. That's the price of the one-filter approach; fixing it would mean per-element JS, which is what lags.
 - Inside pop-up frames (share dialog, file picker), photos may show as negatives.
+- With Windows high contrast (forced colours) on, dark mode stays off so your contrast colours win; clean-up still works.
 - The clean-up selectors were written without inspecting a signed-in Docs page. See TESTING.md.
 
 ## Build

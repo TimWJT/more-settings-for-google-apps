@@ -84,7 +84,8 @@
     const on = s.enabled !== false;
     const dark = on && !presenting && s.darkMode && s[app] !== false;
     root.toggleAttribute('data-msgd-off', !dark);
-    try { localStorage.setItem(OFF_KEY, dark ? '0' : '1'); } catch { /* blocked */ }
+    // Present pages are always light: don't let them save "off" for the next Slides editor load (white flash).
+    if (!presenting) try { localStorage.setItem(OFF_KEY, dark ? '0' : '1'); } catch { /* blocked */ }
     const mail = app === 'appGmail';
     const level = mail ? s.mailLevel : s.level;
     if (root.getAttribute('data-msgd-level') !== level) root.setAttribute('data-msgd-level', level);
@@ -121,7 +122,8 @@
   // Changes that arrive before the first load are kept, not overwritten by the older stored values.
   const early = {};
   let loaded = false;
-  browser.storage.local.get(MSG_DEFAULTS).then((got) => { s = { ...s, ...got, ...early }; loaded = true; apply(); });
+  // If the read fails, carry on with the defaults rather than stay on the first-paint guess.
+  browser.storage.local.get(MSG_DEFAULTS).catch(() => ({})).then((got) => { s = { ...s, ...got, ...early }; loaded = true; apply(); });
   browser.storage.onChanged.addListener((changes, area) => {
     if (area !== 'local') return;
     for (const k in changes) {

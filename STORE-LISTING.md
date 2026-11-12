@@ -41,5 +41,5 @@ Leave "This add-on has a Privacy Policy" unticked. It collects nothing.
 
 ## Notes for the reviewer
 - No build step and no minified code. The files you upload are the source.
-- Dark mode is one CSS filter on `<html>` (`dark.css`). `content.js` only sets a few attributes on `<html>` when settings change, and has no MutationObservers.
+- Dark mode is one CSS filter on `<html>` (`dark.css`). `content.js` only sets a few attributes and CSS variables on `<html>` when settings change, adds one hidden SVG filter (only for the "My colours" Docs page), and has no MutationObservers. It also keeps a one-character on/off flag (`msgd-off-<app>`) in the page's localStorage so a page with dark mode off doesn't flash dark before settings load. Nothing is sent anywhere.
 - Permissions: `storage` for settings, and access to docs.google.com and mail.google.com only. No network requests, no remote code.

@@ -146,8 +146,10 @@ function coloursBlock() {
     const commit = () => {
       let v = input.value.trim();
       if (!v.startsWith('#')) v = '#' + v;
-      if (MSG_HEX.test(v)) { input.classList.remove('bad'); save({ docPage: 'custom', [key]: v.toLowerCase() }); }
-      else input.classList.add('bad');
+      const ok = MSG_HEX.test(v);
+      input.classList.toggle('bad', !ok);
+      input.setAttribute('aria-invalid', String(!ok));
+      if (ok) save({ docPage: 'custom', [key]: v.toLowerCase() });
     };
     input.addEventListener('change', commit);
     input.addEventListener('keydown', (e) => { if (e.key === 'Enter') commit(); });
@@ -212,6 +214,8 @@ function render() {
     if (i < 0) return;
     if (e.key === 'ArrowRight') selectTab(ids[(i + 1) % ids.length], true);
     else if (e.key === 'ArrowLeft') selectTab(ids[(i - 1 + ids.length) % ids.length], true);
+    else if (e.key === 'Home') selectTab(ids[0], true);
+    else if (e.key === 'End') selectTab(ids[ids.length - 1], true);
     else return;
     e.preventDefault();
   });
@@ -243,7 +247,7 @@ browser.storage.onChanged.addListener((changes, area) => {
   for (const [k, { newValue }] of Object.entries(changes)) {
     current[k] = newValue ?? MSG_DEFAULTS[k];
     for (const el of bound.get(k) || []) {
-      if (el.tagName === 'SELECT' || el.type === 'text') { el.value = current[k]; el.classList.remove('bad'); }
+      if (el.tagName === 'SELECT' || el.type === 'text') { el.value = current[k]; el.classList.remove('bad'); el.removeAttribute('aria-invalid'); }
       else el.checked = !!current[k];
     }
   }
@@ -253,7 +257,7 @@ browser.storage.onChanged.addListener((changes, area) => {
 });
 
 Promise.all([
-  browser.storage.local.get(MSG_DEFAULTS),
+  browser.storage.local.get(MSG_DEFAULTS).catch(() => ({ ...MSG_DEFAULTS })),
   browser.tabs.query({ active: true, currentWindow: true }).catch(() => []),
 ]).then(([s, [tab]]) => {
   current = s;

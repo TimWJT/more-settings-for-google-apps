@@ -19,6 +19,8 @@ Tick these off in Firefox while signed in.
 - [ ] Drive, Calendar and other sites are untouched
 - [ ] Profile photos keep real colours
 - [ ] Slides: presenting (fullscreen) shows true colours
+- [ ] Slides: after opening a `/present` link, the next Slides editor opens dark with no white flash
+- [ ] Windows high contrast on: no dark filter, clean-up still hides things
 - [ ] Printing / print preview is normal (dark.css is screen-only)
 - [ ] The Dark mode switch turns it off and on live
 - [ ] Unticking an app under Dark mode in turns it off live in that tab

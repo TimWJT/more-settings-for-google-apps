@@ -5,9 +5,11 @@
 
    Maths: invert(a) maps a colour c to a + c(1 - 2a). Undoing it is invert(1) then contrast(1 / (2a - 1)),
    so each level below has a matching --k. brightness(b) is undone by brightness(1/b) first. hue-rotate(180deg) twice is a full turn, so it undoes itself.
-   content.js only sets attributes on <html>; it never touches anything else. */
+   content.js only sets attributes on <html> (plus a few CSS variables and one hidden SVG filter for "My colours").
 
-@media screen {
+   Dark mode is off in Windows high contrast / forced colours, so it never undoes the colours you picked there. */
+
+@media screen and (forced-colors: none) {
   /* --msgd-b: brightness after the invert, so the dark and light ends can be set separately; --msgd-ib = 1 / b. */
   :root { --msgd-a: 0.9074; --msgd-k: 1.2273; --msgd-b: 1.016; --msgd-ib: 0.9843; }   /* charcoal (Claude-like): #181818, text #ebebeb */
   :root[data-msgd-level="grey"] { --msgd-a: 0.88; --msgd-k: 1.3158; --msgd-b: 1; --msgd-ib: 1; }    /* #1f1f1f, text #e0e0e0 */
@@ -73,6 +75,9 @@
     filter: none !important;
   }
 
+}
+
+@media screen {
   /* ---------- Clean up ----------
      Editors (Docs, Sheets, Slides, Forms; Gemini also in Gmail, with its own setting), and only buttons and menu items, so a file or doc title
      like "Gemini notes" never disappears. */
